@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="college.css"> <!-- Link to the existing CSS file -->
+</head>
+<body>
+  <div class="sidebar">
+    <!-- Add an image icon next to the title -->
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <h3>EngineerSelect</h3>
+    </div>
+    
+    <ul>
+      <li><a href="adminhome.html">Dashboard</a></li>
+      <li><a href="Addcolleges.html">Add Colleges</a></li>
+      <li><a href="Colleges.html">College Details</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    </header>
+    <div class="college-table">
+      <table id="college-table">
+        <thead>
+          <tr>
+            <th class="Colleges">College Name</th>
+            <th class="Actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="college-table-body">
+          <!-- College data will be inserted here dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    function logout() { 
+      window.location.href = 'logina.html'; 
+  }
+    // Function to fetch college names from the backend
+    async function deleteCollege(id) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/admin/data/${id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) {
+          throw new Error('Failed to delete college');
+        }
+        // Refresh college list after deletion
+        renderCollegeNames();
+      } catch (error) {
+        console.error('Error deleting college:', error);
+      }
+    }
+    
+    async function fetchCollegeNames() {
+      try {
+        const response = await fetch('http://localhost:5000/api/admin/data/colleges');
+        if (!response.ok) {
+          throw new Error('Failed to fetch college names');
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching college names:', error);
+        return [];
+      }
+    }
+    async function renderCollegeNames() {
+      const collegeNames = await fetchCollegeNames();
+      const collegeTableBody = document.getElementById('college-table-body');
+      collegeTableBody.innerHTML = ''; // Clear existing table rows
+      collegeNames.forEach(college => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td onclick="viewCollegeDetails('${college._id}')">${college.name}</td>
+          <td>
+          <div class="actions-container">
+            <button class="edit-button" onclick="editCollege('${college._id}')">Edit</button>
+            <button class="delete-button" onclick="deleteCollege('${college._id}')">Delete</button>
+          </td>
+          </div>
+        `;
+        collegeTableBody.appendChild(row);
+      });
+    }
+    
+    async function editCollege(id) {
+      try {
+        // Redirect to the editcollege.html page with the college ID as a query parameter
+        window.location.href = `/editcollege.html?id=${id}`;
+      } catch (error) {
+        console.error('Error editing college:', error);
+      }
+    }    
+    // Function to redirect to college details page
+    function viewCollegeDetails(id) {
+      window.location.href = `/colleges/${id}`;
+    }
+
+    // Call the renderCollegeNames function when the page loads
+    window.onload = renderCollegeNames;
+  </script>
+</body>
+</html>

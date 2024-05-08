@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form To Email Using Formspree</title>
+   <link rel="stylesheet" href="contactstyle.css">
+</head>
+<body>
+  <div class="container">
+    <form action="https://formspree.io/f/xleqavdq" method="POST">
+      <h3>GET IN TOUCH</h3>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="_replyto" placeholder="Email id" required>
+      <input type="text" id="phone" name="phone" placeholder="Phone no." required>
+      <textarea id="message" name="message" rows="4" placeholder="How can we help you?" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+<script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var formData = {
+            email: document.getElementById('email').value,
+            name: document.getElementById('name').value,
+            content: document.getElementById('message').value
+        };
+    
+        // Simulate form submission without a backend
+        console.log('Form data:', formData);
+    });
+</script>
+</body>
+</html>

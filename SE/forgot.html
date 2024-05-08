@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password - EngineerSelect</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-image: url('image2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    
+    .forgot-password-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .forgot-password-form {
+      background-color: #070e16;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .forgot-password-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #e60000;
+    }
+    
+    .success-message, .error-message {
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .success-message {
+      color: green;
+    }
+    
+    .error-message {
+      color: red;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="forgot-password-container">
+    <form class="forgot-password-form">
+      <h2>Forgot Password</h2>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <button type="submit" class="btn">Reset Password</button>
+      <div id="success-message" class="success-message"></div> <!-- Success message container -->
+      <div id="error-message" class="error-message"></div> <!-- Error message container -->
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.forgot-password-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/admin/forgot-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email })
+        });
+  
+        if (response.ok) {
+          // Reset password link sent successfully
+          const successMessage = await response.json();
+          displaySuccessMessage(successMessage.message);
+        } else {
+          const errorMessage = await response.json();
+          console.error('Reset password failed:', errorMessage);
+          // Display error message to the user
+          displayErrorMessage(errorMessage.error);
+        }
+      } catch (error) {
+        console.error('Error during password reset:', error.message);
+        // Display error message to the user
+        displayErrorMessage('Error during password reset. Please try again later.');
+      }
+    });
+  
+    function displaySuccessMessage(message) {
+      const successMessageElement = document.getElementById('success-message');
+      successMessageElement.textContent = message;
+      successMessageElement.style.color = 'green';
+      // Clear error message if displayed
+      document.getElementById('error-message').textContent = '';
+    }
+
+    function displayErrorMessage(message) {
+      const errorMessageElement = document.getElementById('error-message');
+      errorMessageElement.textContent = message;
+      errorMessageElement.style.color = 'red';
+      // Clear success message if displayed
+      document.getElementById('success-message').textContent = '';
+    }
+  </script>
+  
+</body>
+</html>

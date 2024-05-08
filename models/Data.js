@@ -1,0 +1,36 @@
+const mongoose = require("mongoose");
+
+const CollegeSchema = new mongoose.Schema({
+    name: String,
+    Address:String,
+    city: String,
+    state: String,
+    country:String,
+    ContactDetails: String,
+    accreditation: String,
+    rankings: String,
+    programsOffered: [String],
+    admissionRequirements: String,
+    tuitionAndFees: String,
+    tuitionAndFees1: String,
+    financialAid: String,
+    campusFacilities: String,
+    faculty: String,
+    industryConnections: String,
+    studentSupportServices: String,
+    studentLife: String,
+    alumniNetwork: String,
+    successStories: String,
+    accommodationOptions: String,
+    safetyAndSecurity: String,
+    diversityAndInclusion: String,
+    employmentOutcomes: String,
+    studentReviewsAndRatings: String,
+    examsRequired: [String],
+    admissionPageLink: String,
+    photos: String,
+    photos1: String,
+    photos2: String,
+},{ timestamps: true });
+
+module.exports = mongoose.model("College", CollegeSchema);

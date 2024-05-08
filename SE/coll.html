@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <title>College Details</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; 
+            margin: 20px;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .carousel {
+            margin-bottom: 30px;
+        }
+        
+        .carousel-indicators {
+            margin-bottom: 10px;
+        }
+        #collegeName {
+            font-family: "Times New Roman";
+            text-align: center;
+            font-size: 40px;
+         /* Set color for college name */
+        }
+        
+        .card strong {
+            font-weight: bold;
+        }
+        
+        .card p strong {
+            font-weight: bold;
+        }
+        
+        .card:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        
+        .card:nth-child(even) {
+            background-color: #f0f0f0;
+        }  
+        #names
+        {
+            background-color:black;
+            color:white;
+        } 
+    </style>
+</head>
+<body>
+    <div id="collegeDetails">
+        <div class="card" id="names">
+            <h1><span id="collegeName" class="Name"></span></h1>
+            <p><strong><span id="collegeAddress"></span></strong> </p>
+        </div>
+        <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        </div>
+        <div>
+            <p class="card"><strong>City: </strong><span id="collegeCity"></span></p>
+            <p class="card"><strong>State:</strong> <span id="collegeState"></span></p>
+            <p class="card"><strong>Country:</strong> <span id="collegeCountry"></span></p>
+            <p class="card"><strong>Contact Details:</strong> <span id="collegeContactDetails"></span></p>
+            <p class="card"><strong>Accreditation: </strong><span id="collegeAccreditation"></span></p>
+            <p class="card"><strong>Rankings: </strong><span id="collegeRankings"></span></p>
+            <p class="card"><strong>Programs Offered: </strong><span id="collegeProgramsOffered"></span></p>
+            <p class="card"><strong>Admission Requirements: </strong><span id="collegeAdmissionRequirements"></span></p>
+        </div>
+
+        <div class="card">
+            <h3>Tuition and Fees</h3>
+            <p class="card"><strong>Details:</strong> <span id="tuitionAndFees"></span></p>
+            <div id="tuitionAndFees1"></div>
+        </div>
+        <div>
+            <p class="card"><strong>Financial Aid:</strong> <span id="collegeFinancialAid"></span></p>
+            <p class="card"><strong>Campus Facilities:</strong> <span id="collegeCampusFacilities"></span></p>
+            <p class="card"><strong>Faculty:</strong> <span id="collegeFaculty"></span></p>
+            <p class="card"><strong>Industry Connections:</strong> <span id="collegeIndustryConnections"></span></p>
+            <p class="card"><strong>Student Support Services:</strong> <span id="collegeStudentSupportServices"></span></p>
+            <p class="card"><strong>Student Life:</strong> <span id="collegeStudentLife"></span></p>
+            <p class="card"><strong>Alumni Network:</strong> <span id="collegeAlumniNetwork"></span></p>
+            <p class="card"><strong>Success Stories:</strong> <span id="collegeSuccessStories"></span></p>
+            <p class="card"><strong>Accommodation Options:</strong> <span id="collegeAccommodationOptions"></span></p>
+            <p class="card"><strong>Safety and Security:</strong> <span id="collegeSafetyAndSecurity"></span></p>
+            <p class="card"><strong>Diversity and Inclusion:</strong> <span id="collegeDiversityAndInclusion"></span></p>
+            <p class="card"><strong>Employment Outcomes:</strong> <span id="collegeEmploymentOutcomes"></span></p>
+            <p class="card"><strong>Student Reviews and Ratings:</strong> <span id="collegeStudentReviewsAndRatings"></span></p>
+            <p class="card"><strong>Exams Required:</strong> <span id="collegeExamsRequired"></span></p>
+            <p class="card"><strong>Admission Page Link:</strong> <a href="#" id="collegeAdmissionPageLink"></a></p>
+        </div>        
+    </div>
+    <script>
+        function fetchCollegeById(collegeId) {
+            fetch(`http://localhost:5000/api/user/data/colleges/${collegeId}`)
+                .then(response => response.json())
+                .then(college => {
+                    document.getElementById('collegeName').innerText = college.name;
+                    document.getElementById('collegeAddress').innerText = college.Address;
+                    document.getElementById('collegeCity').innerText = college.city;
+                    document.getElementById('collegeState').innerText = college.state;
+                    document.getElementById('collegeCountry').innerText = college.country;
+                    document.getElementById('collegeContactDetails').innerText = college.ContactDetails;
+                    document.getElementById('collegeAccreditation').innerText = college.accreditation;
+                    document.getElementById('collegeRankings').innerText = college.rankings;
+                    document.getElementById('collegeProgramsOffered').innerText = college.programsOffered.join(', ');
+                    document.getElementById('collegeAdmissionRequirements').innerText = college.admissionRequirements;
+    
+                    const photosDiv = document.getElementById('hero-carousel');
+                    photosDiv.innerHTML = `
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                      </div>
+                  
+                      <div class="carousel-inner">
+                        <div class="carousel-item active c-item">
+                          <img src="${college.photos}" class="d-block w-100 c-img" alt="Slide 1">
+                        </div>
+                        <div class="carousel-item c-item">
+                          <img src="${college.photos1}" class="d-block w-100 c-img" alt="Slide 2">
+                        </div>
+                        <div class="carousel-item c-item">
+                          <img src="${college.photos2}" class="d-block w-100 c-img" alt="Slide 3">
+                        </div>
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    `;
+                    document.getElementById('tuitionAndFees').innerText = college.tuitionAndFees;
+                    document.getElementById('tuitionAndFees1').innerHTML = ` <img src="${college.tuitionAndFees1}" width="1000" height="500" alt="Tuition and Fees">`;                    
+                    document.getElementById('collegeFinancialAid').innerText = college.financialAid;
+                    document.getElementById('collegeCampusFacilities').innerText = college.campusFacilities;
+                    document.getElementById('collegeFaculty').innerText = college.faculty;
+                    document.getElementById('collegeIndustryConnections').innerText = college.industryConnections;
+                    document.getElementById('collegeStudentSupportServices').innerText = college.studentSupportServices;
+                    document.getElementById('collegeStudentLife').innerText = college.studentLife;
+                    document.getElementById('collegeAlumniNetwork').innerText = college.alumniNetwork;
+                    document.getElementById('collegeSuccessStories').innerText = college.successStories;
+                    document.getElementById('collegeAccommodationOptions').innerText = college.accommodationOptions;
+                    document.getElementById('collegeSafetyAndSecurity').innerText = college.safetyAndSecurity;
+                    document.getElementById('collegeDiversityAndInclusion').innerText = college.diversityAndInclusion;
+                    document.getElementById('collegeEmploymentOutcomes').innerText = college.employmentOutcomes;
+                    document.getElementById('collegeStudentReviewsAndRatings').innerText = college.studentReviewsAndRatings;
+                    document.getElementById('collegeExamsRequired').innerText = college.examsRequired.join(', ');
+                    document.getElementById('collegeAdmissionPageLink').innerText = college.admissionPageLink;
+                    document.getElementById('collegeAdmissionPageLink').href = college.admissionPageLink;
+                })
+                .catch(error => {
+                    console.error('Error fetching college:', error);
+                    const collegeDetails = document.getElementById('collegeDetails');
+                    collegeDetails.innerHTML = `<p>Error fetching college information.</p>`;
+                });
+        }
+    
+        const urlParams = new URLSearchParams(window.location.search);
+        const collegeId = urlParams.get('collegeId');
+    
+        if (collegeId) {
+            fetchCollegeById(collegeId);
+        } else {
+            const collegeDetails = document.getElementById('collegeDetails');
+            collegeDetails.innerHTML = `<p>College ID not provided.</p>`;
+        }
+    </script>
+</body>
+</html>

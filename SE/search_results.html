@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <title>College Details</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; 
+            margin: 20px; /* Add some margin around the body */
+        }
+        
+        .card {
+            border-radius: 10px; /* Increase border radius for a smoother appearance */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            color: #333; /* Set color for heading */
+        }
+        
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px; /* Increase border radius for images */
+        }
+        
+        .carousel {
+            margin-bottom: 30px; /* Add margin below carousel */
+        }
+        
+        .carousel-indicators {
+            margin-bottom: 10px; /* Add margin below carousel indicators */
+        }
+        
+        #collegeName {
+            font-family: "Times New Roman";
+            text-align: center;
+            font-size: 40px; /* Increase font size for college name */
+         /* Set color for college name */
+        }
+        
+        /* Change font weight of <strong> tags within .card */
+        .card strong {
+            font-weight: bold;
+        }
+        
+        /* Change font weight of <strong> within .card p */
+        .card p strong {
+            font-weight: bold;
+        }
+        
+        .card:nth-child(odd) {
+            background-color: #f9f9f9; /* Set background color for odd cards */
+        }
+        
+        .card:nth-child(even) {
+            background-color: #f0f0f0; /* Set background color for even cards */
+        }  
+        #names
+        {
+            background-color:black;
+            color:white;
+        }      
+    </style>
+</head>
+<body>
+    <div id="searchResults"></div> <!-- Container for search results -->
+
+    <script>
+        // Retrieve search results from sessionStorage
+        const searchResults = JSON.parse(sessionStorage.getItem('searchResults'));
+
+        // Display search results
+        if (searchResults && searchResults.length > 0) {
+            const searchResultsContainer = document.getElementById('searchResults');
+            searchResults.forEach(college => {
+                const collegeDiv = document.createElement('div');
+                collegeDiv.innerHTML = `
+                <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="collegeDetails">
+                        <div  class="card" id="names">
+                            <h1><span id="collegeName" class="Name">${college.name}</span></h1>
+                            <p><strong><span id="collegeAddress">${college.Address}</span></strong></p>
+                        </div>
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                          </div>
+                      
+                          <div class="carousel-inner">
+                            <div class="carousel-item active c-item">
+                              <img src="${college.photos}" class="d-block w-100 c-img" alt="Slide 1">
+                            </div>
+                            <div class="carousel-item c-item">
+                              <img src="${college.photos1}" class="d-block w-100 c-img" alt="Slide 2">
+                            </div>
+                            <div class="carousel-item c-item">
+                              <img src="${college.photos2}" class="d-block w-100 c-img" alt="Slide 3">
+                            </div>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                        <div >
+                            <p class="card"><strong>City:</strong> <span id="collegeCity">${college.city}</span></p>
+                            <p class="card"><strong>State:</strong> <span id="collegeState">${college.state}</span></p>
+                            <p class="card"><strong>Country:</strong> <span id="collegeCountry">${college.country}</span></p>
+                            <p class="card"><strong>Contact Details:</strong> <span id="collegeContactDetails">${college.ContactDetails}</span></p>
+                            <p class="card"><strong>Accreditation:</strong> <span id="collegeAccreditation">${college.accreditation}</span></p>
+                            <p class="card"><strong>Rankings:</strong> <span id="collegeRankings">${college.rankings}</span></p>
+                            <p class="card"><strong>Programs Offered:</strong> <span id="collegeProgramsOffered">${college.programsOffered.join(', ')}</span></p>
+                            <p class="card"><strong>Admission Requirements:</strong> <span id="collegeAdmissionRequirements">${college.admissionRequirements}</span></p>
+                        </div>
+                        <div class="card">
+                            <h3>Tuition and Fees</h3>
+                            <p class="card"><strong>Details:</strong> <span id="tuitionAndFees">${college.tuitionAndFees}</span></p>
+                            <img src="${college.tuitionAndFees1}" width="1000" height="500" alt="Tuition and Fees">;                    
+                         
+                        <div >
+                            <p class="card"><strong>Financial Aid:</strong> <span id="collegeFinancialAid">${college.financialAid}</span></p>
+                            <p class="card"><strong>Campus Facilities:</strong> <span id="collegeCampusFacilities">${college.campusFacilities}</span></p>
+                            <p class="card"><strong>Faculty:</strong> <span id="collegeFaculty">${college.faculty}</span></p>
+                            <p class="card"><strong>Industry Connections:</strong> <span id="collegeIndustryConnections">${college.industryConnections}</span></p>
+                            <p class="card"><strong>Student Support Services:</strong> <span id="collegeStudentSupportServices">${college.studentSupportServices}</span></p>
+                            <p class="card"><strong>Student Life:</strong> <span id="collegeStudentLife">${college.studentLife}</span></p>
+                            <p class="card"><strong>Alumni Network:</strong> <span id="collegeAlumniNetwork">${college.alumniNetwork}</span></p>
+                            <p class="card"><strong>Success Stories:</strong> <span id="collegeSuccessStories">${college.successStories}</span></p>
+                            <p class="card"><strong>Accommodation Options:</strong> <span id="collegeAccommodationOptions">${college.accommodationOptions}</span></p>
+                            <p class="card"><strong>Safety and Security:</strong> <span id="collegeSafetyAndSecurity">${college.safetyAndSecurity}</span></p>
+                            <p class="card"><strong>Diversity and Inclusion:</strong> <span id="collegeDiversityAndInclusion">${college.diversityAndInclusion}</span></p>
+                            <p class="card"><strong>Employment Outcomes:</strong> <span id="collegeEmploymentOutcomes">${college.employmentOutcomes}</span></p>
+                            <p class="card"><strong>Student Reviews and Ratings:</strong> <span id="collegeStudentReviewsAndRatings">${college.studentReviewsAndRatings}</span></p>
+                            <p class="card"><strong>Exams Required:</strong> <span id="collegeExamsRequired">${college.examsRequired.join(', ')}</span></p>
+                            <p class="card"><strong>Admission Page Link:</strong> <a href="${college.admissionPageLink}" id="collegeAdmissionPageLink">${college.admissionPageLink}</a></p>
+                        </div>
+                        
+                    </div>
+                    `;
+                searchResultsContainer.appendChild(collegeDiv);
+            });
+        } else {
+            // No search results found
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'No search results found.';
+            document.body.appendChild(noResultsMessage);
+        }
+    </script>
+</body>
+</html>

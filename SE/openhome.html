@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngineerSelect</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" type="image/png" href="Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="Logo.png" alt="EngineerSelect Logo">
+      <h3>EngineerSelect</h3>
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <input type="text" id="searchInput" placeholder="Search...">
+          <i class="fas fa-search search-icon" onclick="search()"></i>
+        </li>      
+        <li><a href="#home">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Categories</a>
+          <div class="dropdown-content">
+            <a href="collegesdetails.html">B.Tech</a>
+            <a href="collegesdetails.html">B.Sc</a>
+            <a href="collegesdetails.html">B.com</a>
+            <a href="collegesdetails.html">BA</a>
+            <a href="collegesdetails.html">BBA</a>
+            <a href="collegesdetails.html">BCA</a>
+          </div>
+        </li>
+        <li><a href="collegesdetails.html">Colleges</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#" id="usernameLink">Username</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to EngineerSelect</h1>
+      <p>Find Your Ideal College</p>
+      <a href="collegesdetails.html" class="btn">Explore Colleges</a>
+    </div>
+  </section>
+  
+  <section id="about" class="about dark-theme">
+    <div class="about-content">
+      <h2>What This Website Is About</h2>
+      <p>This website provides recommendations for engineering colleges, offering comprehensive details such as images, fees, NIRF ratings, and user ratings. It aims to assist students in making informed decisions by presenting a variety of college options for them to choose from.</p>
+      <a href="collegesdetails.html" class="btn">Search Colleges</a>
+    </div>
+    <div class="about-image">
+      <img src="image3.jpg" alt="About Image">
+    </div>
+  </section>
+
+  <section id="colleges" class="colleges dark-theme">
+    <h2>Featured Colleges</h2>
+    <div class="colleges-container" id="collegeList">
+      <!-- College cards will be dynamically added here -->
+      <div class="Button"></div>
+    </div>
+  </section>
+
+  <section class="reservations" id="contact">
+    <div class="reservation-form">
+      <h2>Contact Us</h2>
+      <form id="contact-form" action="https://formspree.io/f/xleqavdq" method="POST">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="_replyto" placeholder="Email id" required>
+        <input type="text" id="phone" name="phone" placeholder="Phone no." required>
+        <textarea id="message" name="message" rows="4" placeholder="How can we help you?" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="Logo.png" alt="Logo">
+      </div>
+      <nav class="footer-links">
+        <a href="#home">Home</a>
+        <a href="collegesdetails.html">Colleges</a>
+        <a href="#search">Search</a>
+        <a href="contact.html">Contact</a>
+        <a href="logina.html">Admin Login</a>
+        <a href="#">User Login</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <p class="footer-text">&copy; 2024 EngineerSelect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchColleges();
+        fetchUserData();
+    });
+
+    async function fetchUserData() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id');
+        const response = await fetch(`http://localhost:5000/api/user/${userId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const userData = await response.json();
+        const usernameLink = document.getElementById('usernameLink');
+        usernameLink.textContent = userData.username;
+        usernameLink.addEventListener('click', () => {
+          window.location.href = `settinga.html?id=${userId}`;
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
+
+    async function fetchColleges() {
+        try {
+            const response = await fetch('http://localhost:5000/api/user/data/colleges');
+            if (!response.ok) {
+                throw new Error('Failed to fetch colleges data');
+            }
+            const collegesData = await response.json();
+            displayColleges(collegesData);
+        } catch (error) {
+            console.error('Error fetching colleges data:', error);
+        }
+    }
+    function displayColleges(collegesData) {
+      const collegesContainer = document.querySelector('.colleges-container');
+      collegesContainer.innerHTML = ''; 
+    
+      const numberOfCollegesToShow = 5; 
+    
+      for (let i = 0; i < numberOfCollegesToShow && i < collegesData.length; i++) {
+        const college = collegesData[i];
+    
+        const card = document.createElement('div');
+        card.classList.add('college-card');
+        const image = document.createElement('img');
+        image.src = college.photos1;
+        image.alt = college.name;
+        card.appendChild(image);
+    
+        const contentContainer = document.createElement('div');
+        contentContainer.classList.add('college-card-content-container');
+    
+        const content = document.createElement('div');
+        content.classList.add('college-card-content');
+    
+        const name = document.createElement('h3');
+        name.textContent = college.name;
+        content.appendChild(name);
+    
+        const address = document.createElement('p');
+        address.textContent = college.Address;
+        content.appendChild(address);
+    
+        // Create the "View Details" button
+        const detailsButton = document.createElement('Button');
+        detailsButton.textContent = 'View Details';
+        detailsButton.classList.add('view-details-btn');
+        detailsButton.addEventListener('click', async () => {
+          try {
+            const response = await fetch(`http://localhost:5000/api/user/data/colleges/search/${college.name}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch search results');
+            }
+            const colleges = await response.json();
+            sessionStorage.setItem('searchResults', JSON.stringify(colleges));
+            window.location.href = 'search_results.html';
+          } catch (error) {
+            console.error('Error searching for colleges:', error);
+            // Display error message to the user
+            alert('Error searching for colleges. Please try again later.');
+          }
+        });
+        content.appendChild(detailsButton);
+    
+        contentContainer.appendChild(content);
+        card.appendChild(contentContainer);
+    
+        collegesContainer.appendChild(card);
+      }
+    }
+    
+    async function search() {
+        const searchInput = document.getElementById('searchInput').value;
+        try {
+            const response = await fetch(`http://localhost:5000/api/user/data/colleges/search/${searchInput}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch search results');
+            }
+            const colleges = await response.json();
+            // Store search results in sessionStorage
+            sessionStorage.setItem('searchResults', JSON.stringify(colleges));
+            // Redirect to search_results.html
+            window.location.href = 'search_results.html';
+        } catch (error) {
+            console.error('Error searching for colleges:', error);
+            // Display error message to the user
+            alert('Error searching for colleges. Please try again later.');
+        }
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var formData = {
+            email: document.getElementById('email').value,
+            name: document.getElementById('name').value,
+            content: document.getElementById('message').value
+        };
+    
+        // Simulate form submission without a backend
+        console.log('Form data:', formData);
+    });
+  </script>
+
+</body>
+</html>

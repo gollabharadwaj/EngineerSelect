@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EngineerSelect</title>
+  <link rel="stylesheet" type="text/css" href="login-styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <form class="login-form">
+      <h2>Login</h2>
+      <div class="input-group">
+        <label for="Email">Email:</label>
+        <input type="Email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="input-group">
+        <a href="forgot.html" class="forgot-password">Forgot Password?</a>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div class="sign-up-link">
+        Don't have an account? <a href="userregister.html">Sign Up</a>
+      </div>
+      <div id="error-message" class="error-message"></div> <!-- Error message container -->
+    </div>
+    </form>
+  <script src="login-script.js"></script>
+</body>
+</html>

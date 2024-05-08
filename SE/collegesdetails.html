@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleges Details</title>
+    <style>
+        .college-card {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            padding: 10px; /* Increased padding for better spacing */
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+
+        /* Style for odd rows */
+        .college-card:nth-child(odd) {
+            background-color: #e0e0e0;
+        }
+
+        /* Style for even rows */
+        .college-card:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        /* Style for college card image */
+        .college-card img {
+            width: auto;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-right: 10px; /* Add margin to separate image from text */
+        }
+
+        /* Style for college name */
+        .college-name {
+            font-size: 18px;
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Style for college state */
+        .college-state {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="collegeList">
+        <!-- College details will be dynamically inserted here -->
+    </div>
+
+    <script>
+        function redirectToCollege(collegeId) {
+            window.location.href = `coll.html?collegeId=${collegeId}`;
+        }
+
+        // Fetch college data from the API
+        fetch('http://localhost:5000/api/user/data/colleges')
+            .then(response => response.json())
+            .then(data => {
+                // Iterate over each college and create a card
+                data.forEach(college => {
+                    const collegeCard = document.createElement('div');
+                    collegeCard.classList.add('college-card');
+
+                    // Add click event listener to redirect to coll.html with college ID
+                    collegeCard.addEventListener('click', () => {
+                        redirectToCollege(college._id); // Assuming college ID is '_id'
+                    });
+
+                    // Create and append the image
+                    const collegeImg = document.createElement('img');
+                    collegeImg.src = college.photos1;
+                    collegeImg.alt = college.name;
+                    collegeCard.appendChild(collegeImg);
+
+                    // Create and append the college name
+                    const collegeName = document.createElement('h2');
+                    collegeName.classList.add('college-name');
+                    collegeName.textContent = college.name;
+                    collegeCard.appendChild(collegeName);
+
+                    // Create and append the college state
+                    const collegeState = document.createElement('p');
+                    collegeState.classList.add('college-state');
+                    collegeState.textContent = college.state;
+                    collegeCard.appendChild(collegeState);
+
+                    // Append the card to the container
+                    document.getElementById('collegeList').appendChild(collegeCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching colleges:', error);
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration - EngineerSelect</title>
+  <link rel="stylesheet" type="text/css" href="registration-styles.css">
+</head>
+<body>
+  <div class="registration-container">
+    <form class="registration-form" id="registration-form">
+      <h2>User Registration</h2>
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+      </div>
+      <button type="submit" class="btn">Register</button>
+      <div class="login-link">
+        Not a user? <a href="adminreg.html">Admin Registration</a>
+      </div>
+      <div class="login-link">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+      <!-- Error message display div -->
+      <div id="error-message" class="error-message"></div>
+    </form>
+  </div>
+  <script src="registration-script.js"></script>
+</body>
+</html>

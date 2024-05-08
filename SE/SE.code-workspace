@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../SE_PROJECT/BACKEND"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "SE"
+	}
+}

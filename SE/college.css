@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.logo {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    border-radius: 50%;
+}
+
+.sidebar {
+    background-color: #070e16;
+    color: #fff;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.sidebar h3 {
+    margin-left: 10px;
+}
+
+.sidebar ul {
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #4e6bff;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#add-colleges {
+    font-size: 24px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+}
+
+.admin-profile img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.admin-profile span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.dashboard-info {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-info h1 {
+    font-size: 24px;
+    margin-right: auto;
+}
+.college-table tr:nth-child(even) {
+    background-color: #e0e0e0;
+  }
+  
+  .college-table tr:nth-child(odd) {
+    background-color: #fff;
+  }
+#add-colleges {
+    background-color: #fff;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.college-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.college-table th, .college-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.college-table th {
+    background-color: #f2f2f2;
+    width: 66.66%; /* 2/3 of the table width */
+}
+
+
+.college-details {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.college-details h2 {
+    margin-bottom: 10px;
+}
+.college-table .actions {
+    width: 33.33%;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-between; /* Distribute buttons evenly */
+}
+
+button.edit-button,
+button.delete-button {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: green; /* For the edit button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button.delete-button {
+    background-color: #ff0000;
+    margin-left: 10px; /* For the delete button */
+}
+
+/* Hover effect */
+button.edit-button:hover{
+    background-color: #4CAF50; /* Darker green for edit button */
+}
+button.delete-button:hover {
+    background-color: #e81f1f;
+}

@@ -1,0 +1,205 @@
+/* add.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.logo {
+    margin:10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    border-radius: 50%;
+}
+
+.sidebar {
+    background-color: #070e16;
+    color: #fff;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.sidebar h3 {
+    margin-left: 10px;
+}
+
+.sidebar ul {
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #4e6bff;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 10px;
+    margin-bottom: 200px;
+}
+.main-content
+{
+    margin-top: 20px;
+}
+header {
+    background-color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-colleges {
+    font-size: 24px;
+    margin-right: auto; 
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+}
+
+.admin-profile img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 10px; 
+}
+
+.admin-profile span {
+    font-weight: bold;
+    margin-right: 10px; 
+}
+
+.dashboard-info {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-info h1 {
+    font-size: 24px;
+    margin-right: auto;
+}
+
+#add-colleges {
+    background-color: #fff;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#add-colleges h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#college-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+#college-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#college-form input[type="text"],
+#college-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#college-form input[type="text"]:focus,
+#college-form textarea:focus {
+    border-color: #4e6bff;
+    outline: none;
+}
+
+#college-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4e6bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#college-form button:hover {
+    background-color: #3a4dad;
+}
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+/* Label for Photos */
+label[for="photos"] {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input for Photos */
+input[type="Photos"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.success-message {
+    color: green;
+}
+.error-message {
+    color: red;
+}

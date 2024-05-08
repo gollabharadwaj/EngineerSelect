@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EngineerSelect</title>
+  <link rel="stylesheet" type="text/css" href="login-stylesa.css">
+</head>
+<body>
+  <div class="login-container">
+    <form class="login-form">
+      <h2>Login</h2>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="input-group">
+        <a href="forgot.html" class="forgot-password">Forgot Password?</a>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div class="sign-up-link">
+        Don't have an account? <a href="adminreg.html">Sign Up</a>
+      </div>
+      <div id="error-message" class="error-message"></div> <!-- Error message container -->
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+  
+        if (response.ok) {
+          // Login successful, get user data
+          const user = await response.json();
+          const userId = user._id;
+          // Redirect to admin home page with user ID
+          sessionStorage.setItem('userId', userId);
+          console.log(userId)
+          window.location.href = `adminhome.html?id=${userId}`;
+        } else {
+          const errorMessage = await response.json();
+          console.error('Login failed:', errorMessage);
+          // Display error message to the user
+          displayErrorMessage(errorMessage.error);
+        }
+      } catch (error) {
+        console.error('Error during login:', error.message);
+        // Display error message to the user
+        displayErrorMessage('Error during login. Please try again later.');
+      }
+    });
+  
+    function displayErrorMessage(message) {
+      const errorMessageElement = document.getElementById('error-message');
+      errorMessageElement.textContent = message;
+      errorMessageElement.style.color = 'red';
+    }
+  </script>
+  
+</body>
+</html>

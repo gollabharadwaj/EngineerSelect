@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="adminhome.css"> <!-- Link to the existing CSS file -->
+</head>
+<body>
+  <div class="sidebar">
+    <!-- Add an image icon next to the title -->
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+        <h3>EngineerSelect</h3>
+    </div>
+    
+    <ul>
+      <li><a href="adminhome.html">Dashboard</a></li>
+      <li><a href="Addcolleges.html">Add Colleges</a></li>
+      <li><a href="Colleges.html">College Details</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <header>
+      <h1 id="add-colleges">Dashboard</h1>
+      <!-- Display admin profile pic and username here -->
+      <div class="admin-profile">
+          <a href="" id="admin-username">Admin Username</a>
+      </div>
+    </header>
+    <div class="stats">
+      <div class="college-details-count">
+          <div class="box">
+              <h3>Colleges</h3>
+              <p id="college-count">Loading...</p>
+          </div>
+      </div>
+      <div class="college-details-count">
+          <div>
+              <h3>Users</h3>
+              <p id="user-count">Loading...</p>
+          </div>
+      </div>
+    </div>  
+
+    <!-- Top Colleges Section -->
+    <section id="top-colleges">
+      <h2>Top Colleges</h2>
+      <!-- List top 5 colleges here -->
+      <ul id="top-colleges-list">
+        <li>Loading...</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    function logout() { 
+      window.location.href = 'logina.html'; 
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Fetch data from the server
+      try {
+        const response = await fetch('http://localhost:5000/api/admin/data/colleges');
+        const data = await response.json();
+    
+        // Update college count
+        document.getElementById('college-count').textContent = `${data.length}`;
+    
+        // Sort colleges by rating (assuming each college object has a 'rating' property)
+        const topColleges = data.sort((a, b) => b.rating - a.rating).slice(0, 5);
+    
+        // Update top colleges list
+        const topCollegesList = document.getElementById('top-colleges-list');
+        topCollegesList.innerHTML = ''; // Clear existing list
+        topColleges.forEach((college, index) => {
+          const li = document.createElement('li');
+          li.textContent = college.name; // Assuming 'name' is the property representing the college name
+    
+          // Add class for odd or even row
+          if (index % 2 === 0) {
+            li.classList.add('even-row');
+          } else {
+            li.classList.add('odd-row');
+          }
+    
+          topCollegesList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Display error message to the user
+        document.getElementById('college-count').textContent = 'Failed to fetch data';
+        document.getElementById('top-colleges-list').innerHTML = '<li>Error fetching data</li>';
+      }
+      try {
+        const response = await fetch('http://localhost:5000/api/user/');
+        const users = await response.json();
+    
+        // Calculate the number of users
+        const userCount = users.length;
+    
+        // Print the number of users
+        document.getElementById('user-count').textContent = `${userCount}`;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        // Display error message to the user
+        document.getElementById('user-count').textContent = 'Failed to fetch users';
+      }
+    
+      // Retrieve user ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('id');
+    
+      // Fetch data using user ID
+      try {
+        const response = await fetch(`http://localhost:5000/api/admin/${userId}`);
+        const userData = await response.json();
+    
+        // Update admin profile pic and username
+        document.getElementById('admin-username').textContent = userData.username; // Assuming 'username' is the property representing the username
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Display error message to the user
+        document.getElementById('admin-username').textContent = 'Error fetching user data';
+      }
+    
+      // Add event listener for admin username link
+      const adminUsernameLink = document.getElementById('admin-username');
+      adminUsernameLink.addEventListener('click', async (event) => {
+        event.preventDefault();
+        if (userId) {
+          try {
+            window.location.href = `settings.html?id=${userId}`;
+          } catch (error) {
+            console.error('Error redirecting:', error);
+            // Display error message to the user
+            alert('Error redirecting. Please try again later.');
+          }
+        } else {
+          console.error('User ID is null or empty');
+          alert('User ID is missing. Please try again later.');
+        }
+      });
+    });
+    
+  </script>
+</body>
+</html>

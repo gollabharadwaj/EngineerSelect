@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Colleges - Admin Dashboard</title>
+    <!-- Link to your existing CSS file -->
+    <link rel="stylesheet" href="add.css">
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Add an image icon next to the title -->
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <h3>EngineerSelect</h3>
+        </div>
+        
+        <ul>
+            <li><a href="adminhome.html">Dashboard</a></li>
+            <li><a href="Addcolleges.html">Add Colleges</a></li>
+            <li><a href="Colleges.html">College Details</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+    </div>
+    <div class="content">
+    <div class="main-content">
+        <form action="/addCollege" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="Address">Address:</label>
+            <input type="text" id="Address" name="location.Address" required><br>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="location.city" required><br>
+
+            <label for="state">State:</label>
+            <input type="text" id="state" name="location.state" required><br>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="location.country" required><br>
+
+            <label for="ContactDetails">ContactDetails:</label>
+            <input type="text" id="ContactDetails" name="ContactDetails"><br>
+
+            <label for="accreditation">Accreditation:</label>
+            <input type="text" id="accreditation" name="accreditation"><br>
+
+            <label for="rankings">Rankings:</label>
+            <input type="text" id="rankings" name="rankings"><br>
+
+            <label for="programsOffered">Programs Offered:</label>
+            <input type="text" id="programsOffered" name="programsOffered"><br>
+
+            <label for="admissionRequirements">Admission Requirements:</label>
+            <input type="text" id="admissionRequirements" name="admissionRequirements"><br>
+
+            <label for="tuitionAndFees">Tuition and Fees:</label>
+            <input type="text" id="tuitionAndFees" name="tuitionAndFees"><br>
+            <input type="text" id="tuitionAndFees1" name="tuitionAndFees1"><br>
+
+            <label for="financialAid">Financial Aid:</label>
+            <input type="text" id="financialAid" name="financialAid"><br>
+
+            <label for="campusFacilities">Campus Facilities:</label>
+            <input type="text" id="campusFacilities" name="campusFacilities"><br>
+
+            <label for="faculty">Faculty:</label>
+            <input type="text" id="faculty" name="faculty"><br>
+
+            <label for="industryConnections">Industry Connections:</label>
+            <input type="text" id="industryConnections" name="industryConnections"><br>
+
+            <label for="studentSupportServices">Student Support Services:</label>
+            <input type="text" id="studentSupportServices" name="studentSupportServices"><br>
+
+            <label for="studentLife">Student Life:</label>
+            <input type="text" id="studentLife" name="studentLife"><br>
+
+            <label for="alumniNetwork">Alumni Network:</label>
+            <input type="text" id="alumniNetwork" name="alumniNetwork"><br>
+
+            <label for="successStories">Success Stories:</label>
+            <input type="text" id="successStories" name="successStories"><br>
+
+            <label for="accommodationOptions">Accommodation Options:</label>
+            <input type="text" id="accommodationOptions" name="accommodationOptions"><br>
+
+            <label for="safetyAndSecurity">Safety and Security:</label>
+            <input type="text" id="safetyAndSecurity" name="safetyAndSecurity"><br>
+
+            <label for="diversityAndInclusion">Diversity and Inclusion:</label>
+            <input type="text" id="diversityAndInclusion" name="diversityAndInclusion"><br>
+
+            <label for="employmentOutcomes">Employment Outcomes:</label>
+            <input type="text" id="employmentOutcomes" name="employmentOutcomes"><br>
+
+            <label for="studentReviewsAndRatings">Student Reviews and Ratings:</label>
+            <input type="text" id="studentReviewsAndRatings" name="studentReviewsAndRatings"><br>
+
+            <label for="examsRequired">Exams Required:</label>
+            <input type="text" id="examsRequired" name="examsRequired"><br>
+
+            <label for="admissionPageLink">Admission Page Link:</label>
+            <input type="text" id="admissionPageLink" name="admissionPageLink"><br>
+
+            <label for="photos">Photos:</label>
+            <input type="text" id="photos" name="photos"><br>
+            <input type="text" id="photos1" name="photos"><br>
+            <input type="text" id="photos2" name="photos"><br>
+            <button type="submit">Add College</button>
+            <div id="message"></div> <!-- Container for success or error message -->
+        </form>
+
+        <script>
+        async function logout() { 
+            window.location.href = 'logina.html'; 
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+        
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent the default form submission
+        
+                const formData = {
+                    name: document.getElementById('name').value,
+                    Address:document.getElementById('Address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    country:document.getElementById('country').value,
+                    ContactDetails:document.getElementById('ContactDetails').value,
+                    accreditation: document.getElementById('accreditation').value,
+                    rankings: document.getElementById('rankings').value,
+                    programsOffered: document.getElementById('programsOffered').value,
+                    admissionRequirements: document.getElementById('admissionRequirements').value,
+                    tuitionAndFees: document.getElementById('tuitionAndFees').value,
+                    tuitionAndFees1: document.getElementById('tuitionAndFees1').value,
+                    financialAid: document.getElementById('financialAid').value,
+                    campusFacilities: document.getElementById('campusFacilities').value,
+                    faculty: document.getElementById('faculty').value,
+                    industryConnections: document.getElementById('industryConnections').value,
+                    studentSupportServices: document.getElementById('studentSupportServices').value,
+                    studentLife: document.getElementById('studentLife').value,
+                    alumniNetwork: document.getElementById('alumniNetwork').value,
+                    successStories: document.getElementById('successStories').value,
+                    accommodationOptions: document.getElementById('accommodationOptions').value,
+                    safetyAndSecurity: document.getElementById('safetyAndSecurity').value,
+                    diversityAndInclusion: document.getElementById('diversityAndInclusion').value,
+                    employmentOutcomes: document.getElementById('employmentOutcomes').value,
+                    studentReviewsAndRatings: document.getElementById('studentReviewsAndRatings').value,
+                    examsRequired: document.getElementById('examsRequired').value,
+                    admissionPageLink: document.getElementById('admissionPageLink').value,
+                    photos: document.getElementById('photos').value,
+                    photos1: document.getElementById('photos1').value,
+                    photos2: document.getElementById('photos2').value,
+
+
+                };
+                const messageDiv = document.getElementById('message');
+                // Make a POST request
+                try {
+                    const response = await fetch('http://localhost:5000/api/admin/data/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                  
+        
+                    const responseData = await response.json();
+                    messageDiv.textContent = 'College added successfully!';
+                    messageDiv.classList.remove('error-message'); 
+                    messageDiv.classList.add('success-message'); // Add success class
+                    console.log('Success:', responseData);
+
+                    form.reset();
+                    
+                    // Optionally, you can redirect or perform any other actions upon success
+                } catch (error) {
+                    // Display error message with red color
+                    messageDiv.textContent = 'Error: College could not be added';
+                    messageDiv.classList.remove('success-message'); // Remove success class if present
+                    messageDiv.classList.add('error-message'); // Add error class
+                    console.error('Error:', error);
+                    // Handle errors here
+                }
+                setTimeout(() => {
+                    messageDiv.textContent = ''; // Remove the message content
+                    messageDiv.classList.remove('success-message'); // Remove the success class
+                    messageDiv.classList.remove('error-message'); // Remove the success class
+
+                }, 1000);
+            });
+        });
+    </script>
+    </div>
+</body>
+</html>

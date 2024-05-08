@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Registration</title>
+  <link rel="stylesheet" href="adminstyles.css"> <!-- Link to the existing CSS file -->
+</head>
+<body>
+  <div class="container">
+    <form action="register.php" method="post" class="admin-registration-form">
+      <h2>Admin Registration</h2>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+      </div>
+      <div class="form-group">
+        <label for="securityKey">Security Key:</label>
+        <input type="text" id="securityKey" name="securityKey" required>
+      </div>
+      <button type="submit">Register</button>
+      <div class="login-link">
+        Not an admin? <a href="userregister.html">User Registration</a>
+      </div>
+      <!-- Add a link to redirect users to the login page -->
+      <div class="login-link">
+        Already have an Account? <a href="logina.html">Login</a>
+      </div>
+      <div id="error-message" class="error-message"></div> <!-- Error message container -->
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.admin-registration-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const securityKey = document.getElementById('securityKey').value;
+      
+      // Check if password and confirm password match
+      if (password !== confirmPassword) {
+        displayErrorMessage('Password and confirm password do not match.');
+        return;
+      }
+      
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/admin/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, email, password, securityKey })
+        });
+  
+       // Inside the response.ok block in the fetch request after successful registration
+            if (response.ok) {
+              const responseData = await response.json();
+              const userId = responseData._id; // Assuming the ID is returned in the response
+
+              // Redirect to admin home page with admin ID as a query parameter
+              sessionStorage.setItem('userId', userId);
+              window.location.href = `adminhome.html?id=${userId}`;
+            }
+            else{
+          const errorMessage = await response.json();
+          console.error('Registration failed:', errorMessage);
+          // Display error message to the user
+          displayErrorMessage(errorMessage.error);
+        }
+      } catch (error) {
+        console.error('Error during registration:', error.message);
+        // Display error message to the user
+        displayErrorMessage('Error during registration. Please try again later.');
+      }
+    });
+  
+    function displayErrorMessage(message) {
+      // Assuming you have an error message element with id 'error-message' in your HTML
+      const errorMessageElement = document.getElementById('error-message');
+      errorMessageElement.textContent = message;
+      errorMessageElement.style.color = 'red';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit College Details</title>
+    <link rel="stylesheet" href="edit.css"> <!-- Link to the existing CSS file -->
+</head>
+
+<body>
+    <div class="sidebar">
+        <!-- Add an image icon next to the title -->
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <h3>EngineerSelect</h3>
+        </div>
+        
+        <ul>
+          <li><a href="adminhome.html">Dashboard</a></li>
+          <li><a href="Addcolleges.html">Add Colleges</a></li>
+          <li><a href="Colleges.html">College Details</a></li>
+          <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <form id="edit-college-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="Address">Address:</label>
+            <input type="text" id="Address" name="Address" required><br>
+            
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required><br>
+            
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required><br>
+            
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required><br>
+            
+            <label for="ContactDetails">Contact Details:</label>
+            <input type="text" id="ContactDetails" name="ContactDetails"><br>
+            
+            <label for="accreditation">Accreditation:</label>
+            <input type="text" id="accreditation" name="accreditation"><br>
+            
+            <label for="rankings">Rankings:</label>
+            <input type="text" id="rankings" name="rankings"><br>
+            
+            <label for="programsOffered">Programs Offered:</label>
+            <input type="text" id="programsOffered" name="programsOffered"><br>
+            
+            <label for="admissionRequirements">Admission Requirements:</label>
+            <input type="text" id="admissionRequirements" name="admissionRequirements"><br>
+            
+            <label for="tuitionAndFees">Tuition and Fees:</label>
+            <input type="text" id="tuitionAndFees" name="tuitionAndFees"><br>
+            <input type="text" id="tuitionAndFees1" name="tuitionAndFees1"><br>
+            
+            <label for="financialAid">Financial Aid:</label>
+            <input type="text" id="financialAid" name="financialAid"><br>
+            
+            <label for="campusFacilities">Campus Facilities:</label>
+            <input type="text" id="campusFacilities" name="campusFacilities"><br>
+            
+            <label for="faculty">Faculty:</label>
+            <input type="text" id="faculty" name="faculty"><br>
+            
+            <label for="industryConnections">Industry Connections:</label>
+            <input type="text" id="industryConnections" name="industryConnections"><br>
+            
+            <label for="studentSupportServices">Student Support Services:</label>
+            <input type="text" id="studentSupportServices" name="studentSupportServices"><br>
+            
+            <label for="studentLife">Student Life:</label>
+            <input type="text" id="studentLife" name="studentLife"><br>
+            
+            <label for="alumniNetwork">Alumni Network:</label>
+            <input type="text" id="alumniNetwork" name="alumniNetwork"><br>
+            
+            <label for="successStories">Success Stories:</label>
+            <input type="text" id="successStories" name="successStories"><br>
+            
+            <label for="accommodationOptions">Accommodation Options:</label>
+            <input type="text" id="accommodationOptions" name="accommodationOptions"><br>
+            
+            <label for="safetyAndSecurity">Safety and Security:</label>
+            <input type="text" id="safetyAndSecurity" name="safetyAndSecurity"><br>
+            
+            <label for="diversityAndInclusion">Diversity and Inclusion:</label>
+            <input type="text" id="diversityAndInclusion" name="diversityAndInclusion"><br>
+            
+            <label for="employmentOutcomes">Employment Outcomes:</label>
+            <input type="text" id="employmentOutcomes" name="employmentOutcomes"><br>
+            
+            <label for="studentReviewsAndRatings">Student Reviews and Ratings:</label>
+            <input type="text" id="studentReviewsAndRatings" name="studentReviewsAndRatings"><br>
+            
+            <label for="examsRequired">Exams Required:</label>
+            <input type="text" id="examsRequired" name="examsRequired"><br>
+            
+            <label for="admissionPageLink">Admission Page Link:</label>
+            <input type="text" id="admissionPageLink" name="admissionPageLink"><br>
+            
+            <label for="photos">Photos:</label>
+            <input type="text" id="photos" name="photos"><br>
+            <input type="text" id="photos1" name="photos1"><br>
+            <input type="text" id="photos2" name="photos2"><br>
+
+            <div id="photos-container"></div>
+
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <script>
+            async function logout() { 
+                window.location.href = 'logina.html'; 
+            }
+            async function fetchCollegeDetails(id) {
+                try {
+                    const response = await fetch(`http://localhost:5000/api/admin/data/colleges/${id}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch college details');
+                    }
+                    const college = await response.json();
+                    return college;
+                } catch (error) {
+                    console.error('Error fetching college details:', error);
+                    return null;
+                }
+            }
+            async function renderCollegeDetails() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const collegeId = urlParams.get('id');
+                const college = await fetchCollegeDetails(collegeId);
+                if (!college) return;
+                document.getElementById('name').value = college.name;
+                document.getElementById('Address').value = college.Address;
+                document.getElementById('city').value = college.city;
+                document.getElementById('state').value = college.state;
+                document.getElementById('country').value = college.country;
+                document.getElementById('ContactDetails').value = college.ContactDetails;
+                document.getElementById('accreditation').value = college.accreditation;
+                document.getElementById('rankings').value = college.rankings;
+                document.getElementById('programsOffered').value = college.programsOffered;
+                document.getElementById('admissionRequirements').value = college.admissionRequirements;
+                document.getElementById('tuitionAndFees').value = college.tuitionAndFees;
+                document.getElementById('tuitionAndFees1').value = college.tuitionAndFees1;
+                document.getElementById('financialAid').value = college.financialAid;
+                document.getElementById('campusFacilities').value = college.campusFacilities;
+                document.getElementById('faculty').value = college.faculty;
+                document.getElementById('industryConnections').value = college.industryConnections;
+                document.getElementById('studentSupportServices').value = college.studentSupportServices;
+                document.getElementById('studentLife').value = college.studentLife;
+                document.getElementById('alumniNetwork').value = college.alumniNetwork;
+                document.getElementById('successStories').value = college.successStories;
+                document.getElementById('accommodationOptions').value = college.accommodationOptions;
+                document.getElementById('safetyAndSecurity').value = college.safetyAndSecurity;
+                document.getElementById('diversityAndInclusion').value = college.diversityAndInclusion;
+                document.getElementById('employmentOutcomes').value = college.employmentOutcomes;
+                document.getElementById('studentReviewsAndRatings').value = college.studentReviewsAndRatings;
+                document.getElementById('examsRequired').value = college.examsRequired;
+                document.getElementById('admissionPageLink').value = college.admissionPageLink; 
+                document.getElementById('photos').value = college.photos;    
+                document.getElementById('photos1').value = college.photos1;       
+                document.getElementById('photos2').value = college.photos2;       
+
+
+            }
+            async function submitForm(event) {
+                event.preventDefault();
+            
+                const urlParams = new URLSearchParams(window.location.search);
+                const collegeId = urlParams.get('id');
+
+                const formData = new FormData(document.getElementById('edit-college-form'));
+                const updatedCollege = {};
+                formData.forEach((value, key) => updatedCollege[key] = value);
+            
+                try {
+                    const response = await fetch(`http://localhost:5000/api/admin/data/${collegeId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedCollege)
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to update college details');
+                    }
+                    alert('College details updated successfully');
+                    // Redirect to College Details page or Dashboard
+                    window.location.href = 'Colleges.html'; // Redirect to the College Details page
+                } catch (error) {
+                    console.error('Error updating college details:', error);
+                }
+            }
+            
+            document.getElementById('edit-college-form').addEventListener('submit', submitForm);
+            renderCollegeDetails();
+        </script>
+    </div>
+</body>
+
+</html>
